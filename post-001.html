@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070707;--panel:rgba(255,255,255,.025);--ink:#e9e9e9;--mut:#9a9a9a;--dim:#5a5a5a;--line:rgba(255,255,255,.13);--line2:rgba(255,255,255,.32);--red:#ff2b2b;--redglow:rgba(255,43,43,.45);--mono:'Share Tech Mono',monospace;--disp:'Barlow Condensed',sans-serif;--body:'Barlow',sans-serif;}
+*{box-sizing:border-box;}
+html{background:#070707;scroll-behavior:smooth;}
+body{margin:0;font-family:var(--body);color:var(--ink);background:#070707;overflow-x:hidden;font-weight:300;}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(0,0,0,.28) 3px,rgba(0,0,0,.28) 3px,transparent 4px);pointer-events:none;z-index:9500;opacity:.5;}
+@keyframes blink{50%{opacity:0;}}
+::-webkit-scrollbar{width:9px;height:9px;}::-webkit-scrollbar-track{background:#070707;}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);}
+::selection{background:var(--ink);color:#070707;}
+a{color:var(--ink);}
+a:hover{color:var(--red);}
+</style>
+<script src="fx.js"></script>
+</helmet>
+
+<canvas id="snow" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+<nav style="position:fixed;top:0;left:0;width:100%;z-index:1000;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;background:rgba(7,7,7,.82);border-bottom:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);">
+  <a href="index.html" style="display:flex;align-items:center;gap:.6rem;text-decoration:none;">
+    <span style="width:11px;height:11px;background:var(--red);display:inline-block;box-shadow:0 0 10px var(--redglow);"></span>
+    <span style="font-family:var(--disp);font-size:1.15rem;font-weight:700;letter-spacing:.24em;color:var(--ink);">J//O</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:.1rem;">
+    <a href="index.html" style="font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);text-decoration:none;padding:.4rem .85rem;border-bottom:2px solid transparent;transition:all .18s;" style-hover="color:var(--ink);border-color:var(--line2);">Home</a>
+    <a href="experience.html" style="font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);text-decoration:none;padding:.4rem .85rem;border-bottom:2px solid transparent;transition:all .18s;" style-hover="color:var(--ink);border-color:var(--line2);">Experience</a>
+    <a href="blog.html" style="font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:.4rem .85rem;border-bottom:2px solid var(--red);">Blog</a>
+    <a href="contact.html" style="font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);text-decoration:none;padding:.4rem .85rem;border-bottom:2px solid transparent;transition:all .18s;" style-hover="color:var(--ink);border-color:var(--line2);">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--mut);">
+    <span style="display:flex;align-items:center;gap:.35rem;color:var(--red);"><span style="width:7px;height:7px;background:var(--red);box-shadow:0 0 8px var(--red);animation:blink 1.4s step-end infinite;"></span>REC</span>
+    <span id="hud-time">00:00:00</span>
+  </div>
+</nav>
+
+<div style="position:relative;z-index:1;padding-top:58px;">
+
+<article style="max-width:760px;margin:0 auto;padding:3.2rem 1.6rem 4rem;">
+
+  <a href="blog.html" style="font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);text-decoration:none;">◂ Back to Field Notes</a>
+
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin:1.6rem 0 1rem;">
+    <span style="font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;color:var(--dim);">ENTRY 001</span>
+    <span style="width:20px;height:1px;background:var(--line2);"></span>
+    <span style="font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--red);border:1px solid var(--red);padding:.14rem .5rem;">Detection</span>
+    <span style="font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:.14rem .5rem;">Elastic</span>
+    <span style="font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:.14rem .5rem;">Python</span>
+  </div>
+
+  <h1 data-scramble style="font-family:var(--disp);font-size:clamp(2.1rem,5vw,3.2rem);font-weight:700;letter-spacing:.02em;text-transform:uppercase;line-height:1.05;color:var(--ink);margin:0 0 1rem;">Catching Lateral Movement With Nothing But Logs</h1>
+
+  <div style="display:flex;flex-wrap:wrap;gap:1.4rem;padding:.9rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;color:var(--dim);">
+    <span>Jorge Ortiz</span><span>Status: drafting</span><span>Est. 8 min</span>
+  </div>
+
+  <p style="font-size:1.15rem;line-height:1.75;color:var(--ink);margin:1.8rem 0 0;font-weight:400;">Placeholder lede. Two or three sentences setting up the problem and what the reader will get out of the post. Send me your write-up and this becomes your words.</p>
+
+  <div style="margin:2.4rem 0 0;">
+    <h2 style="font-family:var(--disp);font-size:1.6rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);margin:0 0 .7rem;">_The Setup</h2>
+    <p style="font-size:1.02rem;line-height:1.85;color:var(--mut);margin:0;">Body paragraph. This page is the layout template for every entry: lede, section headings with the underscore prefix, body copy at readable size, terminal blocks for commands and log output, and a callout for the takeaway.</p>
+  </div>
+
+  <div style="margin:2rem 0 0;background:rgba(0,0,0,.5);border:1px solid var(--line);border-left:2px solid var(--red);padding:1.2rem 1.4rem;">
+    <div style="font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:.7rem;">terminal</div>
+    <pre style="margin:0;font-family:var(--mono);font-size:.88rem;line-height:1.7;color:var(--ink);white-space:pre-wrap;">$ ./ingest.py --source winlogbeat --index lab-security
+[ok] pipeline live // 1 rule fired</pre>
+  </div>
+
+  <div style="margin:2.4rem 0 0;">
+    <h2 style="font-family:var(--disp);font-size:1.6rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);margin:0 0 .7rem;">_What I Would Do Differently</h2>
+    <p style="font-size:1.02rem;line-height:1.85;color:var(--mut);margin:0;">Closing section. Honest assessment of what the lab does not cover yet and what comes next.</p>
+  </div>
+
+  <div style="margin:2.4rem 0 0;background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--red);padding:1.3rem 1.5rem;">
+    <div style="font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:.6rem;">_Takeaway</div>
+    <p style="font-size:1.02rem;line-height:1.85;color:var(--ink);margin:0;">One or two sentences a reader can act on.</p>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;gap:1rem;margin-top:3rem;padding-top:1.3rem;border-top:1px solid var(--line);font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;">
+    <a href="blog.html" style="color:var(--mut);text-decoration:none;">◂ All entries</a>
+    <span style="color:var(--dim);">Next: 002 queued</span>
+  </div>
+
+</article>
+
+<footer style="border-top:1px solid var(--line);padding:1.6rem;text-align:center;font-family:var(--mono);font-size:.8rem;letter-spacing:.12em;color:var(--mut);background:rgba(7,7,7,.7);">
+  <a href="https://github.com/JorgeOrtizCS" target="_blank" style="color:var(--ink);text-decoration:none;" style-hover="color:var(--red);">GitHub</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/jorgeortizcs" target="_blank" style="color:var(--ink);text-decoration:none;" style-hover="color:var(--red);">LinkedIn</a> &nbsp;·&nbsp; Jorge Ortiz // node.0x1A // 2026
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  renderVals() { return {}; }
+  componentDidMount() {
+    const clock = document.querySelector('#hud-time');
+    const tick = () => { if (clock) clock.textContent = new Date().toTimeString().slice(0, 8); };
+    tick(); setInterval(tick, 1000);
+    const initFX = () => { if (!window.FX) return setTimeout(initFX, 60); const sn = document.getElementById('snow'); if (sn) window.FX.cyberSnow(sn); };
+    initFX();
+    const GL = 'ABCDEF0123456789#%&$/\\<>*!';
+    document.querySelectorAll('[data-scramble]').forEach((el) => {
+      const final = el.textContent; const dur = Math.max(10, final.length + 6); let f = 0;
+      const iv = setInterval(() => {
+        f++; let out = '';
+        for (let i = 0; i < final.length; i++) { if (final[i] === ' ') { out += ' '; continue; } out += (i < f * final.length / dur) ? final[i] : GL[Math.floor(Math.random() * GL.length)]; }
+        el.textContent = out; if (f >= dur) { clearInterval(iv); el.textContent = final; }
+      }, 34);
+    });
+  }
+}
+
+</script>
+</body>
+</html>
