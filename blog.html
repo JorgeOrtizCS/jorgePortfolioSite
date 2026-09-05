@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070707;--panel:rgba(255,255,255,.025);--ink:#e9e9e9;--mut:#8c8c8c;--dim:#4a4a4a;--line:rgba(255,255,255,.13);--line2:rgba(255,255,255,.32);--red:#ff2b2b;--redglow:rgba(255,43,43,.45);--mono:'Share Tech Mono',monospace;--disp:'Barlow Condensed',sans-serif;--body:'Barlow',sans-serif;}
+*{box-sizing:border-box;}
+html{background:#070707;scroll-behavior:smooth;}
+body{margin:0;font-family:var(--body);color:var(--ink);background:#070707;overflow-x:hidden;font-weight:300;}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(0,0,0,.28) 3px,rgba(0,0,0,.28) 3px,transparent 4px);pointer-events:none;z-index:9500;opacity:.5;}
+@keyframes blink{50%{opacity:0;}}
+::-webkit-scrollbar{width:9px;height:9px;}::-webkit-scrollbar-track{background:#070707;}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);}
+::selection{background:var(--ink);color:#070707;}
+a{color:inherit;}
+</style>
+<script src="fx.js"></script>
+</helmet>
+
+<canvas id="snow" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+<nav style="position:fixed;top:0;left:0;width:100%;z-index:1000;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;background:rgba(7,7,7,.82);border-bottom:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);">
+  <a href="index.html" style="display:flex;align-items:center;gap:.6rem;text-decoration:none;">
+    <span style="width:11px;height:11px;background:var(--red);display:inline-block;box-shadow:0 0 10px var(--redglow);"></span>
+    <span style="font-family:var(--disp);font-size:1.05rem;font-weight:700;letter-spacing:.24em;color:var(--ink);">J//O</span>
+    <span style="font-family:var(--mono);font-size:.55rem;letter-spacing:.14em;color:var(--dim);">node.0x1A</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:.1rem;">
+    <a href="index.html" style="font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);text-decoration:none;padding:.4rem .85rem;border-bottom:2px solid transparent;transition:all .18s;" style-hover="color:var(--ink);border-color:var(--line2);">Home</a>
+    <a href="experience.html" style="font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);text-decoration:none;padding:.4rem .85rem;border-bottom:2px solid transparent;transition:all .18s;" style-hover="color:var(--ink);border-color:var(--line2);">Experience</a>
+    <a href="projects.html" style="font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);text-decoration:none;padding:.4rem .85rem;border-bottom:2px solid transparent;transition:all .18s;" style-hover="color:var(--ink);border-color:var(--line2);">Projects</a>
+    <a href="blog.html" style="font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:.4rem .85rem;border-bottom:2px solid var(--red);">Blog</a>
+    <a href="contact.html" style="font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);text-decoration:none;padding:.4rem .85rem;border-bottom:2px solid transparent;transition:all .18s;" style-hover="color:var(--ink);border-color:var(--line2);">Contact</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;color:var(--mut);">
+    <span style="display:flex;align-items:center;gap:.35rem;color:var(--red);"><span style="width:7px;height:7px;background:var(--red);box-shadow:0 0 8px var(--red);animation:blink 1.4s step-end infinite;"></span>REC</span>
+    <span id="hud-time">00:00:00</span>
+  </div>
+</nav>
+
+<div style="position:relative;z-index:1;padding-top:54px;">
+
+<section style="max-width:1000px;margin:0 auto;padding:3.4rem 1.6rem 2.2rem;border-bottom:1px solid var(--line);">
+  <div style="display:inline-block;font-family:var(--mono);font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--red);border:1px solid var(--red);padding:.22rem .6rem;margin-bottom:1rem;">Encrypted Log // Write-Ups &amp; Research</div>
+  <div style="display:flex;align-items:baseline;gap:.9rem;"><span style="font-family:var(--disp);font-size:2rem;font-weight:700;color:var(--red);">_</span><h1 data-scramble style="font-family:var(--disp);font-size:clamp(2.4rem,6vw,4rem);font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--ink);margin:0;">Field Notes</h1></div>
+  <p style="font-family:var(--mono);font-size:.78rem;line-height:1.8;color:var(--mut);max-width:620px;margin:1rem 0 0;">Everything I break down while learning offense and defense: lab builds, incident post-mortems, tooling notes, and competition debriefs. Written as I go, not after the fact.</p>
+</section>
+
+<div style="max-width:1000px;margin:0 auto;padding:2.6rem 1.6rem 5rem;">
+
+  <div data-reveal style="opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;">
+    <div style="background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--red);padding:1.5rem 1.7rem;">
+      <div style="font-family:var(--mono);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:.7rem;">_About The Log</div>
+      <p style="font-size:.9rem;line-height:1.85;color:var(--mut);margin:0;">A working notebook for cybersecurity: detection engineering, home lab infrastructure, and the tooling I use day to day. I write these so the next person searching the same error message finds an answer.</p>
+    </div>
+    <div style="background:var(--panel);border:1px solid var(--line);border-left:2px solid var(--line2);padding:1.5rem 1.7rem;">
+      <div style="font-family:var(--mono);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-bottom:.7rem;">_Operator</div>
+      <p style="font-size:.9rem;line-height:1.85;color:var(--mut);margin:0;">Jorge Ortiz, IT operations and security, South Florida. Currently building a lateral movement detection lab, running infrastructure work in the field, and shipping web projects on the side.</p>
+    </div>
+  </div>
+
+  <div data-reveal style="opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s;margin-top:3rem;">
+    <div style="display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.2rem;"><span style="font-family:var(--disp);font-size:1.4rem;font-weight:700;color:var(--red);">_01</span><h2 data-scramble style="font-family:var(--disp);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);margin:0;">Log Entries</h2><span style="flex:1;height:1px;background:var(--line);"></span><span id="entry-count" style="font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;color:var(--dim);"></span></div>
+
+    <div id="filters" style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.4rem;">
+      <button data-filter="all" style="font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:#070707;border:1px solid var(--ink);padding:.34rem .8rem;cursor:pointer;transition:all .18s;">All</button>
+      <button data-filter="detection" style="font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--mut);border:1px solid var(--line);padding:.34rem .8rem;cursor:pointer;transition:all .18s;" style-hover="color:var(--ink);border-color:var(--line2);">Detection</button>
+      <button data-filter="lab" style="font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--mut);border:1px solid var(--line);padding:.34rem .8rem;cursor:pointer;transition:all .18s;" style-hover="color:var(--ink);border-color:var(--line2);">Home Lab</button>
+      <button data-filter="itops" style="font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--mut);border:1px solid var(--line);padding:.34rem .8rem;cursor:pointer;transition:all .18s;" style-hover="color:var(--ink);border-color:var(--line2);">IT Ops</button>
+      <button data-filter="dev" style="font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--mut);border:1px solid var(--line);padding:.34rem .8rem;cursor:pointer;transition:all .18s;" style-hover="color:var(--ink);border-color:var(--line2);">Dev</button>
+    </div>
+
+    <div id="entries" style="display:flex;flex-direction:column;">
+
+      <a data-entry data-tags="detection lab" href="#" style="display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;align-items:center;padding:1.25rem .4rem;border-top:1px solid var(--line);text-decoration:none;transition:all .22s;" style-hover="background:rgba(255,255,255,.03);padding-left:1rem;">
+        <span style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--dim);">001</span>
+        <span style="display:flex;flex-direction:column;gap:.35rem;">
+          <span style="font-family:var(--disp);font-size:1.28rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--ink);line-height:1.2;">Catching Lateral Movement With Nothing But Logs</span>
+          <span style="font-size:.84rem;line-height:1.7;color:var(--mut);">Building the ingestion pipeline and the first three detection rules that actually fired in my SIEM lab.</span>
+          <span style="display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.2rem;">
+            <span style="font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);border:1px solid var(--red);padding:.12rem .45rem;">Detection</span>
+            <span style="font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:.12rem .45rem;">Elastic</span>
+            <span style="font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:.12rem .45rem;">Python</span>
+          </span>
+        </span>
+        <span style="font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);white-space:nowrap;">Drafting ▸</span>
+      </a>
+
+      <a data-entry data-tags="lab itops" href="#" style="display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;align-items:center;padding:1.25rem .4rem;border-top:1px solid var(--line);text-decoration:none;transition:all .22s;" style-hover="background:rgba(255,255,255,.03);padding-left:1rem;">
+        <span style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--dim);">002</span>
+        <span style="display:flex;flex-direction:column;gap:.35rem;">
+          <span style="font-family:var(--disp);font-size:1.28rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--ink);line-height:1.2;">Racking A Lab That Survives Its First Power Cut</span>
+          <span style="font-size:.84rem;line-height:1.7;color:var(--mut);">Hardware, addressing, and the boring decisions that keep a home network reachable when you are not home.</span>
+          <span style="display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.2rem;">
+            <span style="font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:.12rem .45rem;">Home Lab</span>
+            <span style="font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:.12rem .45rem;">Networking</span>
+          </span>
+        </span>
+        <span style="font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);white-space:nowrap;">Queued</span>
+      </a>
+
+      <a data-entry data-tags="itops detection" href="#" style="display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;align-items:center;padding:1.25rem .4rem;border-top:1px solid var(--line);text-decoration:none;transition:all .22s;" style-hover="background:rgba(255,255,255,.03);padding-left:1rem;">
+        <span style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--dim);">003</span>
+        <span style="display:flex;flex-direction:column;gap:.35rem;">
+          <span style="font-family:var(--disp);font-size:1.28rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--ink);line-height:1.2;">What A Real Incident Looks Like From The Help Desk</span>
+          <span style="font-size:.84rem;line-height:1.7;color:var(--mut);">The lateral movement event I watched unfold at RCC, written up as a timeline with what I would monitor differently now.</span>
+          <span style="display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.2rem;">
+            <span style="font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:.12rem .45rem;">IT Ops</span>
+            <span style="font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:.12rem .45rem;">Post-Mortem</span>
+          </span>
+        </span>
+        <span style="font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);white-space:nowrap;">Queued</span>
+      </a>
+
+      <a data-entry data-tags="dev" href="#" style="display:grid;grid-template-columns:auto 1fr auto;gap:1.2rem;align-items:center;padding:1.25rem .4rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-decoration:none;transition:all .22s;" style-hover="background:rgba(255,255,255,.03);padding-left:1rem;">
+        <span style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--dim);">004</span>
+        <span style="display:flex;flex-direction:column;gap:.35rem;">
+          <span style="font-family:var(--disp);font-size:1.28rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--ink);line-height:1.2;">Building This Site As A ctOS Terminal</span>
+          <span style="font-size:.84rem;line-height:1.7;color:var(--mut);">Boot sequences, decrypt reveals, and canvas particle work, how the portfolio you are reading was put together.</span>
+          <span style="display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.2rem;">
+            <span style="font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:.12rem .45rem;">Dev</span>
+            <span style="font-family:var(--mono);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:.12rem .45rem;">Canvas</span>
+          </span>
+        </span>
+        <span style="font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);white-space:nowrap;">Queued</span>
+      </a>
+
+    </div>
+    <p style="font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--dim);margin:1.2rem 0 0;">// send me the write-ups and I'll wire each entry to its own post page.</p>
+  </div>
+
+  <div data-reveal style="opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s;margin-top:3.2rem;">
+    <div style="display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.2rem;"><span style="font-family:var(--disp);font-size:1.4rem;font-weight:700;color:var(--red);">_02</span><h2 data-scramble style="font-family:var(--disp);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink);margin:0;">Signal Feed</h2><span style="flex:1;height:1px;background:var(--line);"></span></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;">
+      <div style="background:var(--panel);border:1px solid var(--line);padding:1.3rem 1.5rem;">
+        <div style="font-family:var(--mono);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:.6rem;">_Reading</div>
+        <p style="font-size:.84rem;line-height:1.8;color:var(--mut);margin:0;">Detection engineering material, MITRE ATT&amp;CK technique breakdowns, and vendor incident reports.</p>
+      </div>
+      <div style="background:var(--panel);border:1px solid var(--line);padding:1.3rem 1.5rem;">
+        <div style="font-family:var(--mono);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:.6rem;">_Local</div>
+        <p style="font-size:.84rem;line-height:1.8;color:var(--mut);margin:0;">South Florida security community: meetups, CTFs, and anything worth showing up to in person.</p>
+      </div>
+      <div style="background:var(--panel);border:1px solid var(--line);padding:1.3rem 1.5rem;">
+        <div style="font-family:var(--mono);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:.6rem;">_Next Up</div>
+        <p style="font-size:.84rem;line-height:1.8;color:var(--mut);margin:0;">Expanding the lab into full attack-chain simulation, then documenting each detection as it lands.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer style="border-top:1px solid var(--line);padding:1.4rem;text-align:center;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;color:var(--mut);background:rgba(7,7,7,.7);">
+  <a href="https://github.com/Arbittrary" target="_blank" style="color:var(--ink);text-decoration:none;" style-hover="color:var(--red);">GitHub</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/jorgeortizcs" target="_blank" style="color:var(--ink);text-decoration:none;" style-hover="color:var(--red);">LinkedIn</a> &nbsp;·&nbsp; Jorge Ortiz // node.0x1A // 2026
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1000,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  renderVals() { return {}; }
+  componentDidMount() {
+    const $ = (s, r = document) => r.querySelector(s);
+    const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+    const GL = 'ABCDEF0123456789#%&$/\\<>*!░▒▓█';
+    const clock = $('#hud-time');
+    const tick = () => { if (clock) clock.textContent = new Date().toTimeString().slice(0, 8); };
+    tick(); setInterval(tick, 1000);
+    const initFX = () => { if (!window.FX) return setTimeout(initFX, 60); const sn = document.getElementById('snow'); if (sn) window.FX.cyberSnow(sn); };
+    initFX();
+    const scramble = (el) => {
+      if (el.dataset.scrambled) return; el.dataset.scrambled = '1';
+      const final = el.dataset.final || el.textContent; el.dataset.final = final;
+      const dur = Math.max(10, final.length + 6); let f = 0;
+      const iv = setInterval(() => {
+        f++; let out = '';
+        for (let i = 0; i < final.length; i++) { if (final[i] === ' ') { out += ' '; continue; } out += (i < f * final.length / dur) ? final[i] : GL[Math.floor(Math.random() * GL.length)]; }
+        el.textContent = out; if (f >= dur) { clearInterval(iv); el.textContent = final; }
+      }, 36);
+    };
+    const targets = new Set([...$$('[data-reveal]'), ...$$('[data-scramble]')]);
+    const io = new IntersectionObserver((ents) => {
+      ents.forEach((en) => { if (!en.isIntersecting) return; const t = en.target; if (t.hasAttribute('data-reveal')) { t.style.opacity = '1'; t.style.transform = 'none'; } if (t.hasAttribute('data-scramble')) scramble(t); io.unobserve(t); });
+    }, { threshold: 0.14 });
+    requestAnimationFrame(() => targets.forEach((t) => {
+      const r = t.getBoundingClientRect();
+      if (r.top < innerHeight * 0.95 && r.bottom > 0) {
+        if (t.hasAttribute('data-reveal')) { t.style.opacity = '1'; t.style.transform = 'none'; }
+        if (t.hasAttribute('data-scramble')) scramble(t);
+      } else io.observe(t);
+    }));
+
+    const entries = $$('[data-entry]');
+    const count = $('#entry-count');
+    const setCount = (n) => { if (count) count.textContent = String(n).padStart(2, '0') + ' / ' + String(entries.length).padStart(2, '0') + ' shown'; };
+    setCount(entries.length);
+    $$('#filters button').forEach((b) => {
+      b.addEventListener('click', () => {
+        const f = b.dataset.filter;
+        $$('#filters button').forEach((o) => {
+          const on = o === b;
+          o.style.background = on ? 'var(--ink)' : 'transparent';
+          o.style.color = on ? '#070707' : 'var(--mut)';
+          o.style.borderColor = on ? 'var(--ink)' : 'var(--line)';
+        });
+        let n = 0;
+        entries.forEach((e) => {
+          const show = f === 'all' || (e.dataset.tags || '').split(' ').includes(f);
+          e.style.display = show ? 'grid' : 'none';
+          if (show) n++;
+        });
+        setCount(n);
+      });
+    });
+  }
+}
+
+</script>
+</body>
+</html>
