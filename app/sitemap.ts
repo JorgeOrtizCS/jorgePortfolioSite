@@ -3,7 +3,7 @@ import { getPublishedPosts } from '@/lib/posts'
 import { site } from '@/lib/content'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ['', '/experience', '/projects', '/blog', '/contact'].map((route) => ({
+  const routes = ['', '/projects', '/blog', '/contact'].map((route) => ({
     url: `${site.url}${route}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,

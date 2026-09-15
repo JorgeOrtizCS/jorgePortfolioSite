@@ -28,3 +28,6 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# Claude file deliveries (not source)
+/Claude outputs/

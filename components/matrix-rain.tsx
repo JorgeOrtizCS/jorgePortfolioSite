@@ -2,9 +2,10 @@
 
 import { useEffect, useRef } from 'react'
 
-const CHARACTERS = 'アカサタナハマヤラワ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>/[]{}$#'
-const COLUMN_WIDTH = 18
-const TARGET_FPS = 24
+const CHARACTERS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ<>/[]{}$#'
+const COLUMN_WIDTH = 22
+const TARGET_FPS = 18
+const SPEED = 0.32
 
 export function MatrixRain() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -13,7 +14,7 @@ export function MatrixRain() {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const context = canvas.getContext('2d', { alpha: true })
+    const context = canvas.getContext('2d')
     if (!context) return
 
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -24,8 +25,6 @@ export function MatrixRain() {
     let running = false
 
     const resize = () => {
-      // Cap the device pixel ratio. On a 3x phone the uncapped version
-      // pushes ~9x the pixels for no visible gain.
       const ratio = Math.min(window.devicePixelRatio || 1, 2)
       const { innerWidth: width, innerHeight: height } = window
 
@@ -35,43 +34,48 @@ export function MatrixRain() {
       canvas.style.height = `${height}px`
       context.setTransform(ratio, 0, 0, ratio, 0, 0)
 
-      const columns = Math.ceil(width / COLUMN_WIDTH)
-      drops = Array.from({ length: columns }, () => Math.random() * -40)
+      drops = Array.from({ length: Math.ceil(width / COLUMN_WIDTH) }, () => Math.random() * -50)
     }
 
-    const paintStaticFrame = () => {
+    const paintStatic = () => {
       const { innerWidth: width, innerHeight: height } = window
       context.clearRect(0, 0, width, height)
-      context.font = '12px monospace'
-      context.fillStyle = 'rgba(72, 163, 107, 0.18)'
+      context.font = '13px monospace'
+      context.fillStyle = 'rgba(79, 157, 115, 0.2)'
       drops.forEach((_, index) => {
-        const character = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)]
-        context.fillText(character, index * COLUMN_WIDTH, Math.random() * height)
+        context.fillText(
+          CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)],
+          index * COLUMN_WIDTH,
+          Math.random() * height,
+        )
       })
     }
 
     const draw = (now: number) => {
       frame = window.requestAnimationFrame(draw)
 
-      // Throttle. A 144Hz monitor does not need 144 frames of this.
       if (now - lastPaint < 1000 / TARGET_FPS) return
       lastPaint = now
 
       const { innerWidth: width, innerHeight: height } = window
-      context.fillStyle = 'rgba(3, 7, 5, 0.13)'
+
+      context.fillStyle = 'rgba(8, 12, 10, 0.1)'
       context.fillRect(0, 0, width, height)
-      context.font = '12px monospace'
+      context.font = '13px monospace'
 
       for (let index = 0; index < drops.length; index += 1) {
         const drop = drops[index]
-        const character = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)]
         const y = drop * COLUMN_WIDTH
 
         context.fillStyle =
-          Math.random() > 0.94 ? 'rgba(174, 255, 201, 0.72)' : 'rgba(72, 163, 107, 0.25)'
-        context.fillText(character, index * COLUMN_WIDTH, y)
+          Math.random() > 0.97 ? 'rgba(126, 226, 168, 0.5)' : 'rgba(79, 157, 115, 0.22)'
+        context.fillText(
+          CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)],
+          index * COLUMN_WIDTH,
+          y,
+        )
 
-        drops[index] = y > height && Math.random() > 0.975 ? -10 : drop + 0.55
+        drops[index] = y > height && Math.random() > 0.98 ? -10 : drop + SPEED
       }
     }
 
@@ -87,35 +91,27 @@ export function MatrixRain() {
       window.cancelAnimationFrame(frame)
     }
 
-    const onVisibilityChange = () => {
-      // Backgrounded tabs should not burn battery on a decorative canvas.
-      if (document.hidden) stop()
-      else start()
-    }
+    const onVisibility = () => (document.hidden ? stop() : start())
 
-    const onMotionChange = () => {
+    const onMotion = () => {
       stop()
-      if (motionQuery.matches) paintStaticFrame()
+      if (motionQuery.matches) paintStatic()
       else start()
     }
 
     resize()
-
-    if (motionQuery.matches) {
-      paintStaticFrame()
-    } else {
-      start()
-    }
+    if (motionQuery.matches) paintStatic()
+    else start()
 
     window.addEventListener('resize', resize)
-    document.addEventListener('visibilitychange', onVisibilityChange)
-    motionQuery.addEventListener('change', onMotionChange)
+    document.addEventListener('visibilitychange', onVisibility)
+    motionQuery.addEventListener('change', onMotion)
 
     return () => {
       stop()
       window.removeEventListener('resize', resize)
-      document.removeEventListener('visibilitychange', onVisibilityChange)
-      motionQuery.removeEventListener('change', onMotionChange)
+      document.removeEventListener('visibilitychange', onVisibility)
+      motionQuery.removeEventListener('change', onMotion)
     }
   }, [])
 

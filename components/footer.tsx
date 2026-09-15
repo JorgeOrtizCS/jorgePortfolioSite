@@ -1,14 +1,13 @@
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { site } from '@/lib/content'
-import { Wordmark } from './nav'
 
 export function Footer() {
   return (
     <footer className="footer">
-      <Link className="wordmark-link" href="/">
-        <Wordmark />
-      </Link>
+      <span>
+        &copy; {new Date().getFullYear()} {site.name}
+      </span>
 
       <nav className="footer-links" aria-label="Elsewhere">
         <a href={site.github} target="_blank" rel="noreferrer noopener">
@@ -17,12 +16,8 @@ export function Footer() {
         <a href={site.linkedin} target="_blank" rel="noreferrer noopener">
           LinkedIn <ArrowUpRight size={15} aria-hidden="true" />
         </a>
-        <Link href="/contact">
-          Contact <ArrowUpRight size={15} aria-hidden="true" />
-        </Link>
+        <Link href="/contact">Contact</Link>
       </nav>
-
-      <span className="footer-note">&copy; {new Date().getFullYear()} Jorge Ortiz</span>
     </footer>
   )
 }

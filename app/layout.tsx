@@ -6,14 +6,16 @@ import { MatrixRain } from '@/components/matrix-rain'
 import { site } from '@/lib/content'
 import './globals.css'
 
+const description =
+  'Jorge Ortiz is a computer science student and IT professional in South Florida working toward a SOC analyst role, with four years across enterprise IT, EDR tooling, and SIEM platforms.'
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — Cybersecurity & IT Systems`,
+    default: `${site.name} — Cybersecurity & IT`,
     template: `%s — ${site.name}`,
   },
-  description:
-    'Portfolio and field notes of Jorge Ortiz: SOC analyst in training, four years across enterprise IT, EDR tooling, and SIEM platforms.',
+  description,
   keywords: [
     'Jorge Ortiz',
     'SOC analyst',
@@ -26,15 +28,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: site.name,
-    title: `${site.name} — Cybersecurity & IT Systems`,
-    description:
-      'Portfolio and field notes of Jorge Ortiz: SOC analyst in training, four years across enterprise IT, EDR tooling, and SIEM platforms.',
+    title: `${site.name} — Cybersecurity & IT`,
+    description,
     url: site.url,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${site.name} — Cybersecurity & IT Systems`,
-    description: 'Portfolio and field notes. Security, systems, and detection work.',
+    title: `${site.name} — Cybersecurity & IT`,
+    description,
   },
   icons: {
     icon: [
@@ -47,21 +48,21 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: 'dark',
-  themeColor: '#030705',
+  themeColor: '#080c0a',
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body>
         <a className="skip-link" href="#main">
           Skip to content
         </a>
 
         <MatrixRain />
-        <div className="matrix-vignette" aria-hidden="true" />
+        <div className="bg-wash" aria-hidden="true" />
 
-        <div className="site-shell">
+        <div className="site">
           <Nav />
           <main id="main">{children}</main>
           <Footer />

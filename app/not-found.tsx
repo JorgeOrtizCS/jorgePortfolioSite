@@ -3,19 +3,15 @@ import { ArrowLeft } from 'lucide-react'
 
 export default function NotFound() {
   return (
-    <section className="page-header">
-      <p className="eyebrow">
-        <span className="prompt">[</span> 404 <span className="prompt">]</span>
-      </p>
-      <h1>
-        No route
-        <br />
-        <span>to host.</span>
-      </h1>
-      <p>That page does not exist, or it moved during the rebuild.</p>
-      <Link className="button button-green" href="/">
-        <ArrowLeft size={18} aria-hidden="true" /> back home
-      </Link>
+    <section className="page-head">
+      <span className="label">404</span>
+      <h1>Page not found</h1>
+      <p>That page doesn&apos;t exist, or it moved.</p>
+      <div className="hero-actions">
+        <Link className="btn btn-primary" href="/">
+          <ArrowLeft size={18} aria-hidden="true" /> Back home
+        </Link>
+      </div>
     </section>
   )
 }

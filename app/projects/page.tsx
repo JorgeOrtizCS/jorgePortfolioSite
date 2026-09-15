@@ -4,50 +4,45 @@ import { projects } from '@/lib/content'
 
 export const metadata: Metadata = {
   title: 'Projects',
-  description:
-    'Detection labs, shipped client sites, and proof-of-concept builds by Jorge Ortiz.',
+  description: 'Detection labs, client sites, and other things Jorge Ortiz has built.',
 }
 
 export default function ProjectsPage() {
   return (
     <>
-      <header className="page-header">
-        <p className="eyebrow">
-          <span className="prompt">[</span> 03 / selected work <span className="prompt">]</span>
-        </p>
-        <h1>
-          Things I have
-          <br />
-          <span>actually built.</span>
-        </h1>
+      <header className="page-head">
+        <span className="label">Projects</span>
+        <h1>Things I&apos;ve built</h1>
         <p>
-          Active labs, shipped products, and proof-of-concept work. Every entry here is live,
-          documented, or iterated from real experience.
+          Security labs, client work, and side projects. Some are finished, some are still going.
         </p>
       </header>
 
-      <section className="project-grid" aria-label="Projects">
+      <section className="projects" aria-label="Projects">
         {projects.map((project) => (
-          <article className="project-card" key={project.number}>
-            <div className="project-head">
-              <span className="project-number">{project.number}</span>
-              <span className={`status-pill status-${project.status.toLowerCase().replace(/\s+/g, '-')}`}>
+          <article className="project" key={project.title}>
+            <div className="project-top">
+              <h2>{project.title}</h2>
+              <span
+                className={`pill ${
+                  project.status === 'Live' || project.status === 'In progress' ? 'is-live' : ''
+                }`}
+              >
                 {project.status}
               </span>
             </div>
 
-            <h2>{project.title}</h2>
-            <p className="project-copy">{project.description}</p>
+            <p>{project.description}</p>
 
-            <div className="tag-list">
+            <ul className="chips">
               {project.stack.map((tech) => (
-                <span key={tech}>{tech}</span>
+                <li key={tech}>{tech}</li>
               ))}
-            </div>
+            </ul>
 
             {project.href ? (
               <a
-                className="inline-link"
+                className="link"
                 href={project.href}
                 target="_blank"
                 rel="noreferrer noopener"

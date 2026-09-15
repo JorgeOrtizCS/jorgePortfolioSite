@@ -12,54 +12,47 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <header className="page-header">
-        <p className="eyebrow">
-          <span className="prompt">[</span> 05 / contact <span className="prompt">]</span>
-        </p>
-        <h1>
-          Open
-          <br />
-          <span>channel.</span>
-        </h1>
+      <header className="page-head">
+        <span className="label">Contact</span>
+        <h1>Get in touch</h1>
         <p>
-          Open to SOC analyst roles, cybersecurity opportunities, and dev collaborations. If you are
-          building something that has to hold up under pressure, I would like to hear about it.
+          I&apos;m looking for SOC analyst roles and open to cybersecurity work or dev
+          collaborations. Email is the fastest way to reach me.
         </p>
       </header>
 
-      <section className="contact-card">
-        <p className="kicker">direct line</p>
+      <section className="contact">
+        <span className="label">Email</span>
 
         <a className="contact-email" href={`mailto:${site.email}`}>
-          <Mail size={22} aria-hidden="true" />
+          <Mail size={26} aria-hidden="true" />
           {site.email}
-          <ArrowUpRight size={22} aria-hidden="true" />
         </a>
 
         <div className="contact-actions">
-          <CopyEmailButton className="button button-green" />
+          <CopyEmailButton className="btn btn-primary" />
           <a
-            className="button button-outline"
+            className="btn btn-secondary"
             href={site.linkedin}
             target="_blank"
             rel="noreferrer noopener"
           >
-            LinkedIn <ArrowUpRight size={17} aria-hidden="true" />
+            LinkedIn <ArrowUpRight size={18} aria-hidden="true" />
           </a>
           <a
-            className="button button-outline"
+            className="btn btn-secondary"
             href={site.github}
             target="_blank"
             rel="noreferrer noopener"
           >
-            GitHub <ArrowUpRight size={17} aria-hidden="true" />
+            GitHub <ArrowUpRight size={18} aria-hidden="true" />
           </a>
         </div>
 
-        <dl className="contact-facts">
+        <dl className="facts">
           <div>
-            <dt>Status</dt>
-            <dd className="green">Actively interviewing for SOC analyst roles</dd>
+            <dt>Looking for</dt>
+            <dd>SOC analyst roles</dd>
           </div>
           <div>
             <dt>Based in</dt>
@@ -67,7 +60,7 @@ export default function ContactPage() {
           </div>
           <div>
             <dt>Graduating</dt>
-            <dd>Spring 2027, Florida Atlantic University</dd>
+            <dd>Spring 2027, FAU</dd>
           </div>
         </dl>
       </section>

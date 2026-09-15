@@ -2,21 +2,21 @@
 entry: '001'
 title: Catching Lateral Movement With Nothing But Logs
 date: '2026-09-08'
-summary: Building the ingestion pipeline and the first three detection rules that actually fired in my SIEM lab.
+summary: Building the log ingestion pipeline and the first three detection rules that actually fired in my SIEM lab.
 tags: ['Detection', 'Elastic', 'Python']
 status: published
 readingTime: '8 min'
 ---
 
-This is the layout template for every entry. Replace the body with your write-up and
-the page formats itself: headings, body copy, code blocks, lists, and callouts.
+This post is a formatting template. Replace the body with your write-up and the page
+handles the rest: headings, code blocks, lists, and callouts all style themselves.
 
 ## The setup
 
-Body paragraph. Explain the problem, the environment, and what the reader gets out of
-reading this. Keep the lede honest about what the lab does and does not cover.
+Explain the problem, the environment, and what someone gets out of reading this. Be
+honest about what the lab covers and what it does not.
 
-Inline `code` looks like this, and a longer block looks like this:
+Inline `code` looks like this. A longer block looks like this:
 
 ```bash
 $ ./ingest.py --source winlogbeat --index lab-security
@@ -25,16 +25,12 @@ $ ./ingest.py --source winlogbeat --index lab-security
 
 ## What fired first
 
-1. Rule one and why it matters.
-2. Rule two and the false positive it generated.
-3. Rule three and what tuning it taught you.
+1. The first rule and why it matters.
+2. The second rule and the false positive it threw.
+3. The third rule and what tuning it taught you.
 
-> A blockquote works as a callout for the takeaway you want people to remember.
+> A blockquote works well for the one thing you want people to remember.
 
-## What I would do differently
+## What I'd do differently
 
-Closing section. Honest assessment of what this does not cover yet and what comes next.
-
-## Takeaway
-
-One or two sentences a reader can act on.
+Close with an honest read on the gaps and what comes next.

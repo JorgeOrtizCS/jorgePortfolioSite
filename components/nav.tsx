@@ -6,48 +6,38 @@ import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 const links = [
-  { href: '/experience', label: 'experience' },
-  { href: '/projects', label: 'projects' },
-  { href: '/blog', label: 'blog' },
-  { href: '/contact', label: 'contact' },
+  { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact', label: 'Contact' },
 ]
 
-export function Wordmark() {
-  return (
-    <span className="wordmark">
-      <span className="prompt">./</span>JORGE<span className="accent">_</span>ORTIZ
-    </span>
-  )
-}
-
 export function Nav() {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   const pathname = usePathname()
 
-  // Close the mobile menu whenever the route changes.
   useEffect(() => {
-    setMenuOpen(false)
+    setOpen(false)
   }, [pathname])
 
-  // Close on Escape so the menu is not a keyboard trap.
   useEffect(() => {
-    if (!menuOpen) return
+    if (!open) return
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMenuOpen(false)
+      if (event.key === 'Escape') setOpen(false)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [menuOpen])
+  }, [open])
 
   return (
-    <nav className="nav-wrap" aria-label="Primary">
-      <Link className="wordmark-link" href="/" aria-label="Jorge Ortiz, home">
-        <Wordmark />
+    <nav className="nav" aria-label="Primary">
+      <Link className="brand" href="/">
+        Jorge Ortiz<span>.</span>
       </Link>
 
-      <div className={`nav-links ${menuOpen ? 'is-open' : ''}`} id="primary-nav">
+      <div className={`nav-links ${open ? 'is-open' : ''}`} id="primary-nav">
         {links.map(({ href, label }) => {
-          const active = pathname === href || pathname.startsWith(`${href}/`)
+          const active = href === '/' ? pathname === '/' : pathname.startsWith(href)
           return (
             <Link key={href} href={href} aria-current={active ? 'page' : undefined}>
               {label}
@@ -56,19 +46,15 @@ export function Nav() {
         })}
       </div>
 
-      <div className="nav-status">
-        <span className="status-dot" aria-hidden="true" /> open to soc roles
-      </div>
-
       <button
         type="button"
         className="menu-toggle"
-        onClick={() => setMenuOpen((open) => !open)}
-        aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-        aria-expanded={menuOpen}
+        onClick={() => setOpen((value) => !value)}
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-expanded={open}
         aria-controls="primary-nav"
       >
-        {menuOpen ? <X size={22} /> : <Menu size={22} />}
+        {open ? <X size={24} /> : <Menu size={24} />}
       </button>
     </nav>
   )

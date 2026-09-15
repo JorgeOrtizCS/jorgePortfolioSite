@@ -37,37 +37,33 @@ export default async function PostPage({ params }: Params) {
 
   return (
     <article className="post">
-      <header className="page-header post-header">
-        <Link className="inline-link back-link" href="/blog">
-          <ArrowLeft size={17} aria-hidden="true" /> all entries
+      <header className="post-head">
+        <Link className="link" href="/blog">
+          <ArrowLeft size={17} aria-hidden="true" /> All posts
         </Link>
-
-        <p className="eyebrow">
-          <span className="prompt">[</span> entry {post.entry} <span className="prompt">]</span>
-        </p>
 
         <h1>{post.title}</h1>
 
         <div className="post-byline">
           <span>{formatDate(post.date)}</span>
-          <span className="dim">·</span>
+          <span>·</span>
           <span>{post.readingTime} read</span>
         </div>
 
-        <div className="tag-list">
+        <ul className="chips">
           {post.tags.map((tag) => (
-            <span key={tag}>{tag}</span>
+            <li key={tag}>{tag}</li>
           ))}
-        </div>
+        </ul>
       </header>
 
       <div className="prose">
         <MDXRemote source={post.content} />
       </div>
 
-      <footer className="post-footer">
-        <Link className="inline-link" href="/blog">
-          <ArrowLeft size={17} aria-hidden="true" /> back to field notes
+      <footer className="post-foot">
+        <Link className="link" href="/blog">
+          <ArrowLeft size={17} aria-hidden="true" /> Back to all posts
         </Link>
       </footer>
     </article>
