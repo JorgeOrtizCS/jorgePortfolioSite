@@ -167,6 +167,8 @@ export const projects: Project[] = [
     stack: ['OpenCV', 'MediaPipe', 'Python'],
     description:
       'Privacy-preserving content sharing, built as my FAU capstone (EGN4950C) under Prof. Hari Kalva. I developed the camera-based detection and screenshot prevention subsystem using OpenCV and MediaPipe, and contributed to the SRS and architecture documentation.',
+    href: 'https://github.com/JorgeOrtizCS/aperture',
+    hrefLabel: 'View on GitHub',
   },
   {
     title: 'MGI Farms',
