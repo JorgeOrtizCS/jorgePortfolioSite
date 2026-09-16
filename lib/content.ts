@@ -1,4 +1,5 @@
 // Single source of truth for site content. Edit here, not in the page components.
+// Kept in sync with the resume in public/Jorge-Ortiz-Resume.pdf.
 
 export const site = {
   name: 'Jorge Ortiz',
@@ -11,44 +12,49 @@ export const site = {
 } as const
 
 export const about = [
-  'I support enterprise IT environments by day and study computer science at Florida Atlantic University. Over the last four years I have handled everything from Tier 1 help desk tickets to Azure AD migrations, endpoint deployments, and threat hunting in SentinelOne.',
+  'I support enterprise IT environments and study computer science at Florida Atlantic University. Over the last few years I have worked from Tier 1 help desk tickets up through Azure AD implementations, endpoint deployments, and threat hunting in SentinelOne.',
   'The part I keep coming back to is detection work: figuring out what normal looks like on a network so you can spot when it stops being normal. I am building toward a SOC analyst role focused on threat detection, incident response, and EDR operations.',
-  'Outside of work I do 3D modeling in Blender, mess around with game development, and build websites. I graduate in Spring 2027 with minors in Cybersecurity and Artificial Intelligence.',
+  'Outside of work I do 3D modeling in Blender, mess around with game development, and build websites. I graduate in Spring 2027 with a minor in Cybersecurity and A.I.',
 ]
 
 export const skills: { title: string; items: string[] }[] = [
   {
-    title: 'Security operations',
+    title: 'Security & Cloud',
     items: [
-      'SentinelOne EDR',
-      'AgileBlue SIEM',
+      'SentinelOne',
+      'Microsoft Sentinel',
+      'AgileBlue',
       'NodeWare',
       'MITRE ATT&CK',
-      'CVE remediation',
-      'Threat hunting',
-      'Incident response',
-    ],
-  },
-  {
-    title: 'Systems and cloud',
-    items: [
-      'Azure Active Directory',
+      'Azure AD / Entra ID',
       'Active Directory',
+      'TCP/IP Networking',
+      'Linux',
       'AWS',
-      'Linux administration',
-      'PowerShell',
-      'SonicWall VPN',
-      'VoIP',
     ],
   },
   {
-    title: 'Development',
-    items: ['Python', 'TypeScript', 'JavaScript', 'Java', 'C++', 'React', 'Node.js'],
+    title: 'Languages & Tools',
+    items: [
+      'Python',
+      'Java',
+      'C++',
+      'JavaScript',
+      'TypeScript',
+      'PowerShell',
+      'Docker',
+      'React',
+      'Node.js',
+      'FastAPI',
+      'Git / GitHub',
+      'Figma',
+    ],
   },
-  {
-    title: 'Tools',
-    items: ['Git', 'Docker', 'Wireshark', 'Jitbit', 'Spiceworks', 'Figma', 'Blender'],
-  },
+]
+
+export const certifications: { name: string; status: string }[] = [
+  { name: 'CompTIA Network+ (N10-009)', status: 'In progress, expected 2026' },
+  { name: 'CompTIA Security+', status: 'Planned, 2026' },
 ]
 
 export type Role = {
@@ -62,52 +68,49 @@ export type Role = {
 
 export const experience: Role[] = [
   {
-    start: 'Feb 2026',
-    end: 'Mar 2026',
-    title: 'IT Cybersecurity Intern',
+    start: 'Mar 2026',
+    end: 'Apr 2026',
+    title: 'Cybersecurity Intern',
     org: 'SkyTek Solutions',
     place: 'Coral Springs, FL',
     bullets: [
-      'Ran CVE remediation and vulnerability triage for managed service clients, prioritizing critical exposures across their environments.',
-      'Monitored and analyzed security events in AgileBlue SIEM, supporting detection and incident response workflows.',
-      'Wrote PowerShell scripts to automate client onboarding and endpoint configuration.',
-      'Handled Tier 1 SOC triage, escalating confirmed threats and documenting findings against client SLAs.',
+      'Monitored and triaged security alerts using AgileBlue SIEM and SentinelOne EDR, applying MITRE ATT&CK techniques to support threat detection.',
+      'Researched and tracked CVE remediation efforts to help reduce organizational exposure to known vulnerabilities.',
     ],
   },
   {
     start: 'Jul 2025',
-    end: 'Jan 2026',
-    title: 'IT Systems Analyst & Helpdesk',
+    end: 'Dec 2025',
+    title: 'IT Systems Admin',
     org: 'RCC Associates',
-    place: 'Deerfield Beach, FL',
+    place: 'Deerfield, FL',
     bullets: [
-      'Supported 100+ employees across hardware, networking, VoIP, and enterprise systems.',
-      'Led a hybrid Active Directory and Azure AD implementation that centralized identity management.',
-      'Rolled out modern helpdesk and ticketing platforms (Jitbit, Spiceworks).',
-      'Ran threat hunting in SentinelOne ThreatOps using EDR queries and MITRE ATT&CK techniques.',
+      'Resolved 15-20 tickets daily across hardware, networking, VoIP, and enterprise systems for 100+ employees.',
+      'Led hybrid Active Directory and Azure AD implementation, improving centralized identity management and security posture.',
+      'Conducted threat hunting and incident analysis via SentinelOne ThreatOps, applying EDR queries and MITRE ATT&CK techniques.',
+    ],
+  },
+  {
+    start: 'Aug 2024',
+    end: 'Jul 2025',
+    title: 'Help Desk Technician, Tier 2',
+    org: 'Banyan Treatment Centers',
+    place: 'Pompano Beach, FL',
+    bullets: [
+      'Resolved 15-20 support tickets daily, averaging under 20 minutes per ticket.',
+      'Supervised 3 outsourced IT support technicians, coordinating daily tasks and service delivery across multiple centers.',
+      'Administered the company-wide Infosec IQ security awareness program for 2,000+ employees, including monthly training, quizzes, and phishing simulations.',
+      'Drove phishing simulation pass rates from 40% to 75-80% through targeted training campaigns and compliance dashboards reported to executive leadership.',
     ],
   },
   {
     start: 'Oct 2022',
-    end: 'Jul 2025',
-    title: 'Help Desk Technician',
+    end: 'Aug 2023',
+    title: 'Help Desk Technician, Tier 1',
     org: 'Banyan Treatment Centers',
     place: 'Pompano Beach, FL',
     bullets: [
-      'Provided Tier 1-3 support for 2,000+ users across multiple treatment centers while maintaining HIPAA compliance.',
-      'Managed user accounts and infrastructure in Azure AD, including setup for newly opened sites in other states.',
-      'Led security awareness training initiatives and kept satisfaction high on resolved tickets.',
-    ],
-  },
-  {
-    start: 'May 2019',
-    end: 'Jul 2019',
-    title: 'IT Intern',
-    org: 'Broward County Public Schools',
-    place: 'Broward County, FL',
-    bullets: [
-      'Diagnosed hardware, software, and connectivity issues across school sites.',
-      'Imaged 200+ laptops before the school year and assisted with ticketing and network troubleshooting.',
+      'Provided Tier 1 technical support and resolved service tickets across hardware, software, and account access, ensuring HIPAA-compliant handling of records.',
     ],
   },
 ]
@@ -124,18 +127,20 @@ export const education: Education[] = [
   {
     school: 'Florida Atlantic University',
     place: 'Boca Raton, FL',
-    date: 'Expected May 2027',
+    date: 'May 2027',
     degree: 'B.S. Computer Science',
-    detail: 'Minors in Cybersecurity and Artificial Intelligence. Institutional GPA 3.60.',
+    detail: 'Minor in Cybersecurity and A.I. GPA 3.6.',
   },
   {
     school: 'Broward College',
     place: 'Coconut Creek, FL',
     date: 'Aug 2024',
-    degree: 'Associate of Arts & Sciences, Computer Science',
-    detail: 'Completed before transferring to FAU.',
+    degree: 'A.A. Computer Science',
+    detail: 'GPA 3.2. Completed before transferring to FAU.',
   },
 ]
+
+export const leadership = 'FAU Cybersecurity Club — Officer, Fall 2026'
 
 export type Project = {
   title: string
@@ -148,13 +153,20 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: 'Lateral Movement Detection Lab',
+    title: 'SentinelZero (LateralWatch)',
     status: 'In progress',
-    stack: ['Python', 'Elastic SIEM', 'Wireshark'],
+    stack: ['React', 'FastAPI', 'Vercel', 'MITRE ATT&CK'],
     description:
-      'A home lab that detects lateral movement in a simulated network. I built the log ingestion pipeline and wrote custom SIEM detection rules. The idea came from a real lateral movement incident I watched unfold at RCC Associates.',
-    href: site.github,
+      'A full-stack web application that ingests network logs and detects lateral movement patterns across enterprise environments. React and Vercel on the front end, FastAPI on the back, with real-time alert visualization and anomaly detection logic. Detection rules are built around MITRE ATT&CK lateral movement techniques T1021, T1075, and T1076, and the whole idea came from an incident I watched unfold at RCC.',
+    href: 'https://github.com/JorgeOrtizCS/sentinelZero',
     hrefLabel: 'View on GitHub',
+  },
+  {
+    title: 'Aperture',
+    status: 'In progress',
+    stack: ['OpenCV', 'MediaPipe', 'Python'],
+    description:
+      'Privacy-preserving content sharing, built as my FAU capstone (EGN4950C) under Prof. Hari Kalva. I developed the camera-based detection and screenshot prevention subsystem using OpenCV and MediaPipe, and contributed to the SRS and architecture documentation.',
   },
   {
     title: 'MGI Farms',
@@ -176,7 +188,7 @@ export const projects: Project[] = [
     stack: ['Next.js', 'TypeScript', 'MDX'],
     description:
       'The site you are on. Rebuilt from static HTML into a Next.js App Router project with an MDX-backed blog. It started as a CodePath Web 101 assignment.',
-    href: site.github,
+    href: 'https://github.com/JorgeOrtizCS/jorgePortfolioSite',
     hrefLabel: 'View source',
   },
 ]

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ArrowRight, ArrowUpRight, Download } from 'lucide-react'
 import { CopyEmailButton } from '@/components/copy-email'
-import { about, education, experience, site, skills } from '@/lib/content'
+import { about, certifications, education, experience, leadership, site, skills } from '@/lib/content'
 
 export default function HomePage() {
   return (
@@ -61,6 +61,18 @@ export default function HomePage() {
             </div>
           ))}
         </div>
+
+        <div className="card skill-group certs">
+          <h3>Certifications</h3>
+          <ul className="cert-list">
+            {certifications.map(({ name, status }) => (
+              <li key={name}>
+                <strong>{name}</strong>
+                <span>{status}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <section className="section" id="experience">
@@ -110,6 +122,8 @@ export default function HomePage() {
             </div>
           ))}
         </div>
+
+        <p className="leadership">{leadership}</p>
       </section>
 
       <section className="section">

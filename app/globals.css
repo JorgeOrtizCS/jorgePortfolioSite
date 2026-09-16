@@ -975,3 +975,43 @@ a.post-row:hover {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Certifications and leadership
+   -------------------------------------------------------------------------- */
+
+.certs {
+  margin-top: 18px;
+}
+
+.cert-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 40px;
+}
+
+.cert-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cert-list strong {
+  font-size: 16.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.cert-list span {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.leadership {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 16.5px;
+}
