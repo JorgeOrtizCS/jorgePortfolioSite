@@ -42,6 +42,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Keep anchor targets clear of the sticky nav. */
+  scroll-padding-top: 90px;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -168,7 +170,6 @@ p {
   flex: 1;
 }
 
-.nav,
 .footer,
 .section,
 .page-head {
@@ -191,37 +192,44 @@ p {
 }
 
 /* --------------------------------------------------------------------------
-   Nav
+   Nav — sticky, centered, hides on scroll down and returns on scroll up
    -------------------------------------------------------------------------- */
 
+.nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition:
+    transform 0.28s var(--ease),
+    background 0.22s var(--ease),
+    border-color 0.22s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+
+.nav-bar.is-scrolled {
+  background: rgba(8, 12, 10, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom-color: var(--line);
+}
+
+.nav-bar.is-hidden {
+  transform: translateY(-100%);
+}
+
 .nav {
-  min-height: 80px;
+  width: var(--shell);
+  margin-inline: auto;
+  min-height: 72px;
   display: flex;
   align-items: center;
-  gap: 32px;
-  position: relative;
-  z-index: 5;
+  justify-content: center;
+  gap: 6px;
 }
 
-.brand {
-  font-weight: 700;
-  font-size: 17px;
-  letter-spacing: -0.01em;
-}
-
-.brand span {
-  color: var(--accent);
-}
-
-.nav-links {
-  display: flex;
-  gap: 8px;
-  margin-left: auto;
-}
-
-.nav-links a {
-  padding: 10px 16px;
-  border-radius: 6px;
+.nav a {
+  padding: 10px 18px;
+  border-radius: 8px;
   font-size: 16px;
   color: var(--muted);
   transition:
@@ -229,24 +237,14 @@ p {
     background 0.18s var(--ease);
 }
 
-.nav-links a:hover {
+.nav a:hover {
   color: var(--ink);
   background: var(--surface);
 }
 
-.nav-links a[aria-current='page'] {
+.nav a[aria-current='page'] {
   color: var(--accent);
   background: var(--surface);
-}
-
-.menu-toggle {
-  display: none;
-  border: 0;
-  background: transparent;
-  color: var(--ink);
-  padding: 10px;
-  margin-left: auto;
-  margin-right: -10px;
 }
 
 /* --------------------------------------------------------------------------
@@ -913,33 +911,13 @@ a.post-row:hover {
   }
 
   .nav {
-    min-height: 68px;
+    min-height: 62px;
+    gap: 0;
   }
 
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav-links {
-    display: none;
-    position: absolute;
-    z-index: 3;
-    inset: 68px calc(var(--gutter) * -1) auto;
-    flex-direction: column;
-    gap: 2px;
-    padding: 14px var(--gutter) 22px;
-    background: var(--surface);
-    border-bottom: 1px solid var(--line);
-    margin-left: 0;
-  }
-
-  .nav-links.is-open {
-    display: flex;
-  }
-
-  .nav-links a {
-    padding: 14px 12px;
-    font-size: 17px;
+  .nav a {
+    padding: 10px 10px;
+    font-size: 15px;
   }
 
   .hero {

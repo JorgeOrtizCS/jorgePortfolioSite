@@ -2,8 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const links = [
   { href: '/', label: 'Home' },
@@ -12,30 +11,54 @@ const links = [
   { href: '/contact', label: 'Contact' },
 ]
 
+// Ignore scroll jitter below this many pixels so the bar does not flicker.
+const THRESHOLD = 8
+// Never hide the bar while still near the top of the page.
+const TOP_ZONE = 100
+
 export function Nav() {
-  const [open, setOpen] = useState(false)
   const pathname = usePathname()
+  const [hidden, setHidden] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const lastY = useRef(0)
+  const ticking = useRef(false)
 
   useEffect(() => {
-    setOpen(false)
+    lastY.current = window.scrollY
+
+    const update = () => {
+      const y = window.scrollY
+      const delta = y - lastY.current
+
+      setScrolled(y > 4)
+
+      if (Math.abs(delta) > THRESHOLD) {
+        setHidden(delta > 0 && y > TOP_ZONE)
+        lastY.current = y
+      }
+
+      ticking.current = false
+    }
+
+    const onScroll = () => {
+      if (ticking.current) return
+      ticking.current = true
+      window.requestAnimationFrame(update)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // A route change should always bring the bar back.
+  useEffect(() => {
+    setHidden(false)
+    lastY.current = 0
   }, [pathname])
 
-  useEffect(() => {
-    if (!open) return
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpen(false)
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [open])
-
   return (
-    <nav className="nav" aria-label="Primary">
-      <Link className="brand" href="/">
-        Jorge Ortiz<span>.</span>
-      </Link>
-
-      <div className={`nav-links ${open ? 'is-open' : ''}`} id="primary-nav">
+    <header className={`nav-bar ${hidden ? 'is-hidden' : ''} ${scrolled ? 'is-scrolled' : ''}`}>
+      <nav className="nav" aria-label="Primary">
         {links.map(({ href, label }) => {
           const active = href === '/' ? pathname === '/' : pathname.startsWith(href)
           return (
@@ -44,18 +67,7 @@ export function Nav() {
             </Link>
           )
         })}
-      </div>
-
-      <button
-        type="button"
-        className="menu-toggle"
-        onClick={() => setOpen((value) => !value)}
-        aria-label={open ? 'Close menu' : 'Open menu'}
-        aria-expanded={open}
-        aria-controls="primary-nav"
-      >
-        {open ? <X size={24} /> : <Menu size={24} />}
-      </button>
-    </nav>
+      </nav>
+    </header>
   )
 }
