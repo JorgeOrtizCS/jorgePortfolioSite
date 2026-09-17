@@ -11,11 +11,44 @@ export const site = {
   resume: '/Jorge-Ortiz-Resume.pdf',
 } as const
 
-export const about = [
-  'I support enterprise IT environments and study computer science at Florida Atlantic University. Over the last few years I have worked from Tier 1 help desk tickets up through Azure AD implementations, endpoint deployments, and threat hunting in SentinelOne.',
-  'The part I keep coming back to is detection work: figuring out what normal looks like on a network so you can spot when it stops being normal. I am building toward a SOC analyst role focused on threat detection, incident response, and EDR operations.',
-  'Outside of work I do 3D modeling in Blender, mess around with game development, and build websites. I graduate in Spring 2027 with a minor in Cybersecurity and A.I.',
+export const hero = {
+  label: 'Defensive Security \u00b7 Detection & Response',
+  headline: ['I hunt threats in', 'enterprise networks.'],
+  lede: 'Jorge Ortiz. CS student at FAU, four years across enterprise IT, from Tier 1 tickets to threat hunting in SentinelOne and alert triage in a SOC. Currently building SentinelZero, a lateral movement detection platform.',
+  ask: 'Looking for defensive security work: SOC, detection engineering, or incident response.',
+}
+
+/** One line, near the top. Update this whenever it stops being true. */
+export const current =
+  'Studying for CompTIA Network+, building out SentinelZero\u2019s alert pipeline, and working through offensive labs on BreachLab to sharpen my detections.'
+
+export const numbers: { value: string; label: string }[] = [
+  { value: '4 yrs', label: 'in enterprise IT' },
+  { value: '2,000+', label: 'employees supported' },
+  { value: '75-80%', label: 'phishing pass rate, up from 40%' },
+  { value: '15-20', label: 'tickets a day, under 20 min each' },
 ]
+
+export const story = {
+  heading: 'Why detection',
+  body: [
+    'While I was at RCC Associates I watched a lateral movement incident unfold on our network. It got handled, but what stuck with me was how much of the evidence had been sitting in logs the whole time, waiting for someone to know what to look for.',
+    'That is why I moved off the help desk and into security, and it is the reason I am building SentinelZero. It is also why I spend my own time in offensive labs. You cannot write a detection for a technique you have never run yourself.',
+  ],
+}
+
+export const about = [
+  'I support enterprise IT environments and study computer science at Florida Atlantic University. Over the last four years I have gone from Tier 1 tickets to supervising technicians, running hybrid Active Directory and Azure AD implementations, and threat hunting in SentinelOne.',
+  'The part I keep coming back to is detection work: figuring out what normal looks like on a network so you can tell when it stops being normal. I am building toward defensive security roles focused on detection, incident response, and EDR operations.',
+  'I also practice on the offensive side. Understanding how an attacker actually moves is what makes a detection rule worth writing, so I work through labs on my own time and feed what I learn back into SentinelZero.',
+]
+
+export const outside = {
+  heading: 'Outside the terminal',
+  body: 'I model in Blender, build small games in Unity, and draw pixel art. Bunkerheadz started as a Flappy Bird clone and turned into a group I ended up leading. Most of what I know about design came from making things look right, not from a class.',
+  items: ['Blender', 'Unity', 'Pixel art', 'Figma', 'Game dev'],
+}
+
 
 export const skills: { title: string; items: string[] }[] = [
   {
@@ -140,7 +173,11 @@ export const education: Education[] = [
   },
 ]
 
-export const leadership = 'FAU Cybersecurity Club — Officer, Fall 2026'
+export const leadership = {
+  org: 'FAU Cybersecurity Club',
+  role: 'Officer',
+  when: 'Fall 2026',
+}
 
 export type Project = {
   title: string

@@ -323,8 +323,9 @@ p {
 
 .hero h1 {
   margin: 18px 0 24px;
-  font-size: clamp(40px, 6vw, 68px);
-  max-width: 20ch;
+  font-size: clamp(38px, 5.6vw, 66px);
+  line-height: 1.08;
+  max-width: 18ch;
 }
 
 .hero h1 span {
@@ -1010,8 +1011,143 @@ a.post-row:hover {
 
 .leadership {
   margin-top: 18px;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
+  padding: 32px;
+}
+
+.leadership h3 {
+  margin: 12px 0 8px;
+  font-size: clamp(26px, 3.2vw, 34px);
+}
+
+.leadership p {
+  color: var(--accent);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.leadership .dot {
+  color: var(--dim);
+  padding: 0 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Hero additions: the ask line and the "right now" line
+   -------------------------------------------------------------------------- */
+
+.hero-ask {
+  margin-top: 20px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.current {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 14px;
+  max-width: 68ch;
+  margin-top: 44px;
+  padding: 18px 22px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  background: var(--surface);
   color: var(--muted);
-  font-size: 16.5px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.current > span {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
+   Numbers strip
+   -------------------------------------------------------------------------- */
+
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.number strong {
+  display: block;
+  font-size: clamp(30px, 3.6vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.number span {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Story block
+   -------------------------------------------------------------------------- */
+
+.story {
+  max-width: 62ch;
+  margin: 0;
+  padding: 32px 36px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: var(--surface);
+}
+
+.story p {
+  color: var(--ink);
+  font-size: 19px;
+  line-height: 1.75;
+}
+
+.story p + p {
+  margin-top: 18px;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   Outside the terminal
+   -------------------------------------------------------------------------- */
+
+.outside p {
+  max-width: 64ch;
+  color: var(--muted);
+}
+
+.outside .chips {
+  margin-top: 24px;
+}
+
+@media (max-width: 900px) {
+  .numbers {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 18px;
+  }
+}
+
+@media (max-width: 700px) {
+  .story {
+    padding: 24px 22px;
+  }
+
+  .story p {
+    font-size: 17px;
+  }
+
+  .current {
+    margin-top: 32px;
+    padding: 16px 18px;
+  }
 }

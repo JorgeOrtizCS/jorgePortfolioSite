@@ -1,23 +1,33 @@
 import Link from 'next/link'
 import { ArrowRight, ArrowUpRight, Download } from 'lucide-react'
 import { CopyEmailButton } from '@/components/copy-email'
-import { about, certifications, education, experience, leadership, site, skills } from '@/lib/content'
+import {
+  about,
+  certifications,
+  current,
+  education,
+  experience,
+  hero,
+  leadership,
+  numbers,
+  outside,
+  site,
+  skills,
+  story,
+} from '@/lib/content'
 
 export default function HomePage() {
   return (
     <>
       <section className="hero">
-        <span className="label">Cybersecurity &amp; IT Systems</span>
+        <span className="label">{hero.label}</span>
 
         <h1>
-          Hi, I&apos;m Jorge. I work on <span>keeping systems safe</span>.
+          {hero.headline[0]} <span>{hero.headline[1]}</span>
         </h1>
 
-        <p>
-          I&apos;m a computer science student at Florida Atlantic University with four years in
-          enterprise IT, now focused on threat detection and incident response. I&apos;m looking for
-          a SOC analyst role.
-        </p>
+        <p>{hero.lede}</p>
+        <p className="hero-ask">{hero.ask}</p>
 
         <div className="hero-actions">
           <Link className="btn btn-primary" href="/projects">
@@ -28,6 +38,33 @@ export default function HomePage() {
           </a>
           <CopyEmailButton />
         </div>
+
+        <p className="current">
+          <span>Right now</span>
+          {current}
+        </p>
+      </section>
+
+      <section className="section numbers" aria-label="By the numbers">
+        {numbers.map(({ value, label }) => (
+          <div className="number" key={label}>
+            <strong>{value}</strong>
+            <span>{label}</span>
+          </div>
+        ))}
+      </section>
+
+      <section className="section" id="story">
+        <div className="section-head">
+          <span className="label">The short version</span>
+          <h2>{story.heading}</h2>
+        </div>
+
+        <blockquote className="story">
+          {story.body.map((paragraph) => (
+            <p key={paragraph.slice(0, 30)}>{paragraph}</p>
+          ))}
+        </blockquote>
       </section>
 
       <section className="section" id="about">
@@ -123,7 +160,29 @@ export default function HomePage() {
           ))}
         </div>
 
-        <p className="leadership">{leadership}</p>
+        <div className="card leadership">
+          <span className="label">Leadership</span>
+          <h3>{leadership.org}</h3>
+          <p>
+            {leadership.role} <span className="dot">·</span> {leadership.when}
+          </p>
+        </div>
+      </section>
+
+      <section className="section" id="outside">
+        <div className="section-head">
+          <span className="label">Off the clock</span>
+          <h2>{outside.heading}</h2>
+        </div>
+
+        <div className="outside">
+          <p>{outside.body}</p>
+          <ul className="chips">
+            {outside.items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <section className="section">
