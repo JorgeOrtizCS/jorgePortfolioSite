@@ -13,8 +13,9 @@ export const site = {
 
 export const hero = {
   label: 'Defensive Security \u00b7 Detection & Response',
-  headline: ['I hunt threats in', 'enterprise networks.'],
-  lede: 'Jorge Ortiz. CS student at FAU, four years across enterprise IT, from Tier 1 tickets to threat hunting in SentinelOne and alert triage in a SOC. Currently building SentinelZero, a lateral movement detection platform.',
+  name: 'Jorge Ortiz',
+  tagline: 'Blue team by trade, red team by curiosity.',
+  lede: 'CS student at FAU, four years across enterprise IT, from Tier 1 tickets to threat hunting in SentinelOne and alert triage in a SOC. Currently building SentinelZero, a lateral movement detection platform.',
   ask: 'Looking for defensive security work: SOC, detection engineering, or incident response.',
 }
 

@@ -321,15 +321,21 @@ p {
   padding-block: 88px 72px;
 }
 
-.hero h1 {
-  margin: 18px 0 24px;
-  font-size: clamp(38px, 5.6vw, 66px);
-  line-height: 1.08;
-  max-width: 18ch;
+.hero-name {
+  margin: 16px 0 10px;
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
 }
 
-.hero h1 span {
+.hero .tagline {
+  max-width: none;
+  margin-bottom: 28px;
   color: var(--accent);
+  font-size: clamp(20px, 2.6vw, 28px);
+  font-weight: 500;
+  letter-spacing: -0.015em;
 }
 
 .hero p {

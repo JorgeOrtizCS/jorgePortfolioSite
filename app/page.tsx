@@ -22,9 +22,8 @@ export default function HomePage() {
       <section className="hero">
         <span className="label">{hero.label}</span>
 
-        <h1>
-          {hero.headline[0]} <span>{hero.headline[1]}</span>
-        </h1>
+        <h1 className="hero-name">{hero.name}</h1>
+        <p className="tagline">{hero.tagline}</p>
 
         <p>{hero.lede}</p>
         <p className="hero-ask">{hero.ask}</p>
