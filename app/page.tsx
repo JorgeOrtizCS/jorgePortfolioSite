@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, ArrowUpRight, Download } from 'lucide-react'
 import { CopyEmailButton } from '@/components/copy-email'
@@ -10,7 +11,6 @@ import {
   hero,
   leadership,
   numbers,
-  outside,
   site,
   skills,
   story,
@@ -20,29 +20,45 @@ export default function HomePage() {
   return (
     <>
       <section className="hero">
-        <span className="label">{hero.label}</span>
+        <div className="hero-copy">
+          <span className="label">{hero.label}</span>
 
-        <h1 className="hero-name">{hero.name}</h1>
-        <p className="tagline">{hero.tagline}</p>
+          <h1 className="hero-name">{hero.name}</h1>
+          <p className="tagline">{hero.tagline}</p>
 
-        <p>{hero.lede}</p>
-        <p className="hero-ask">{hero.ask}</p>
+          <p>{hero.lede}</p>
+          <p className="hero-ask">{hero.ask}</p>
 
-        <div className="hero-actions">
-          <Link className="btn btn-primary" href="/projects">
-            See my work <ArrowRight size={18} aria-hidden="true" />
-          </Link>
-          <a className="btn btn-secondary" href={site.resume} download>
-            <Download size={18} aria-hidden="true" /> Resume
-          </a>
-          <CopyEmailButton />
+          <div className="hero-actions">
+            <Link className="btn btn-primary" href="/projects">
+              See my work <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+            <a className="btn btn-secondary" href={site.resume} download>
+              <Download size={18} aria-hidden="true" /> Resume
+            </a>
+            <CopyEmailButton />
+          </div>
         </div>
 
-        <p className="current">
-          <span>Right now</span>
-          {current}
-        </p>
+        <figure className="hero-feature">
+          <Link href={hero.feature.href}>
+            <Image
+              src={hero.feature.src}
+              alt={hero.feature.alt}
+              width={1531}
+              height={1268}
+              priority
+              sizes="(max-width: 900px) 100vw, 480px"
+            />
+          </Link>
+          <figcaption>{hero.feature.caption}</figcaption>
+        </figure>
       </section>
+
+      <p className="current">
+        <span>Right now</span>
+        {current}
+      </p>
 
       <section className="section numbers" aria-label="By the numbers">
         {numbers.map(({ value, label }) => (
@@ -168,21 +184,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section" id="outside">
-        <div className="section-head">
-          <span className="label">Off the clock</span>
-          <h2>{outside.heading}</h2>
-        </div>
-
-        <div className="outside">
-          <p>{outside.body}</p>
-          <ul className="chips">
-            {outside.items.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      </section>
 
       <section className="section">
         <div className="grid-2">

@@ -17,6 +17,12 @@ export const hero = {
   tagline: 'Blue team by trade, red team by curiosity.',
   lede: 'CS student at FAU, four years across enterprise IT, from Tier 1 tickets to threat hunting in SentinelOne and alert triage in a SOC. Currently building SentinelZero, a lateral movement detection platform.',
   ask: 'Looking for defensive security work: SOC, detection engineering, or incident response.',
+  feature: {
+    src: '/images/sentinelzero-cover.jpg',
+    alt: 'SentinelZero / LateralWatch title card showing a network graph and MITRE ATT&CK technique tags',
+    caption: 'SentinelZero, my lateral movement detection platform',
+    href: '/projects',
+  },
 }
 
 /** One line, near the top. Update this whenever it stops being true. */
@@ -44,11 +50,6 @@ export const about = [
   'I also practice on the offensive side. Understanding how an attacker actually moves is what makes a detection rule worth writing, so I work through labs on my own time and feed what I learn back into SentinelZero.',
 ]
 
-export const outside = {
-  heading: 'Outside the terminal',
-  body: 'I model in Blender, build small games in Unity, and draw pixel art. Bunkerheadz started as a Flappy Bird clone and turned into a group I ended up leading. Most of what I know about design came from making things look right, not from a class.',
-  items: ['Blender', 'Unity', 'Pixel art', 'Figma', 'Game dev'],
-}
 
 
 export const skills: { title: string; items: string[] }[] = [
@@ -180,6 +181,8 @@ export const leadership = {
   when: 'Fall 2026',
 }
 
+export type Shot = { src: string; alt: string; caption: string }
+
 export type Project = {
   title: string
   status: string
@@ -187,6 +190,8 @@ export type Project = {
   description: string
   href?: string
   hrefLabel?: string
+  cover?: Shot
+  shots?: Shot[]
 }
 
 export const projects: Project[] = [
@@ -198,6 +203,23 @@ export const projects: Project[] = [
       'A full-stack web application that ingests network logs and detects lateral movement patterns across enterprise environments. React and Vercel on the front end, FastAPI on the back, with real-time alert visualization and anomaly detection logic. Detection rules are built around MITRE ATT&CK lateral movement techniques T1021, T1075, and T1076, and the whole idea came from an incident I watched unfold at RCC.',
     href: 'https://github.com/JorgeOrtizCS/sentinelZero',
     hrefLabel: 'View on GitHub',
+    cover: {
+      src: '/images/sentinelzero-cover.jpg',
+      alt: 'SentinelZero / LateralWatch title card with a network graph and MITRE technique tags',
+      caption: 'SentinelZero / LateralWatch',
+    },
+    shots: [
+      {
+        src: '/images/sentinelzero-api.jpg',
+        alt: 'SentinelZero API documentation listing events, detect, alerts, and health endpoints',
+        caption: 'The API surface: event ingestion, detection runs, and alert retrieval.',
+      },
+      {
+        src: '/images/sentinelzero-events.jpg',
+        alt: 'Bulk event ingestion request and a 201 response creating seven login events',
+        caption: 'Bulk ingesting RDP and SMB login events across hosts before a detection run.',
+      },
+    ],
   },
   {
     title: 'Aperture',
@@ -214,6 +236,11 @@ export const projects: Project[] = [
     stack: ['React', 'Node.js', 'TypeScript'],
     description:
       'A full-stack site for a Michigan agriculture startup. Drone footage hero, Figma prototyping, and a build out across two states. I volunteered as their developer.',
+    cover: {
+      src: '/images/mgi-farms.jpg',
+      alt: 'MGI Farms homepage with a drone footage hero and registration call to action',
+      caption: 'MGI Farms',
+    },
   },
   {
     title: 'Bunkerheadz',

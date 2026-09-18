@@ -318,7 +318,53 @@ p {
 .hero {
   width: var(--shell);
   margin-inline: auto;
-  padding-block: 88px 72px;
+  padding-block: 88px 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 480px;
+  gap: 56px;
+  align-items: center;
+}
+
+.hero-copy {
+  min-width: 0;
+}
+
+.hero-feature {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface);
+  transition:
+    border-color 0.2s var(--ease),
+    transform 0.2s var(--ease);
+}
+
+.hero-feature:hover {
+  border-color: var(--accent-dim);
+  transform: translateY(-3px);
+}
+
+.hero-feature a {
+  display: block;
+  line-height: 0;
+}
+
+.hero-feature img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* Crop into the title card so its text reads at this size. */
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.hero-feature figcaption {
+  padding: 14px 18px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.5;
 }
 
 .hero-name {
@@ -519,6 +565,7 @@ p {
   margin: 0 auto 88px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  align-items: start;
   gap: 18px;
 }
 
@@ -1047,12 +1094,15 @@ a.post-row:hover {
 }
 
 .current {
+  width: var(--shell);
+  margin-inline: auto;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 8px 14px;
-  max-width: 68ch;
-  margin-top: 44px;
+  max-width: none;
+  margin-top: 0;
+  margin-bottom: 8px;
   padding: 18px 22px;
   border: 1px solid var(--line);
   border-left: 3px solid var(--accent);
@@ -1155,5 +1205,126 @@ a.post-row:hover {
   .current {
     margin-top: 32px;
     padding: 16px 18px;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Screenshots
+   -------------------------------------------------------------------------- */
+
+.shot {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.shot img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.shot figcaption {
+  padding: 14px 18px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+.shot-cover img {
+  /* The title card is mostly empty space top and bottom; crop it to a banner. */
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* --------------------------------------------------------------------------
+   Lead project
+   -------------------------------------------------------------------------- */
+
+.project-lead {
+  width: var(--shell);
+  margin: 0 auto 72px;
+}
+
+.project-lead-body {
+  padding-block: 32px 8px;
+  max-width: 72ch;
+}
+
+.project-lead-body .project-copy {
+  margin-bottom: 22px;
+}
+
+.project-lead-body .chips {
+  margin-bottom: 26px;
+}
+
+.shot-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
+  gap: 18px;
+  margin-top: 32px;
+}
+
+.shot-row .shot img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top left;
+}
+
+.shot-row .shot figcaption {
+  min-height: 74px;
+}
+
+/* --------------------------------------------------------------------------
+   Project cards with covers
+   -------------------------------------------------------------------------- */
+
+.project.has-cover {
+  padding: 0;
+  overflow: hidden;
+}
+
+.project.has-cover .shot-inline {
+  border: 0;
+  border-radius: 0;
+  border-bottom: 1px solid var(--line);
+  width: 100%;
+}
+
+.project.has-cover .shot-inline img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.project.has-cover .project-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 28px;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding-block: 56px 32px;
+  }
+
+  .hero-feature {
+    max-width: 560px;
+  }
+
+  .shot-row {
+    grid-template-columns: 1fr;
   }
 }
