@@ -2,35 +2,10 @@
 entry: '001'
 title: Catching Lateral Movement With Nothing But Logs
 date: '2026-09-08'
-summary: Building the log ingestion pipeline and the first three detection rules that actually fired in my SIEM lab.
-tags: ['Detection', 'Elastic', 'Python']
-status: published
-readingTime: '8 min'
+summary: Building the log ingestion pipeline and the first detection rules that fired in the SentinelZero lab.
+tags: ['Detection', 'Python', 'MITRE ATT&CK']
+status: queued
 ---
 
-This post is a formatting template. Replace the body with your write-up and the page
-handles the rest: headings, code blocks, lists, and callouts all style themselves.
-
-## The setup
-
-Explain the problem, the environment, and what someone gets out of reading this. Be
-honest about what the lab covers and what it does not.
-
-Inline `code` looks like this. A longer block looks like this:
-
-```bash
-$ ./ingest.py --source winlogbeat --index lab-security
-[ok] pipeline live // 1 rule fired
-```
-
-## What fired first
-
-1. The first rule and why it matters.
-2. The second rule and the false positive it threw.
-3. The third rule and what tuning it taught you.
-
-> A blockquote works well for the one thing you want people to remember.
-
-## What I'd do differently
-
-Close with an honest read on the gaps and what comes next.
+Planned. How SentinelZero ingests login events, what the first T1021, T1075, and T1076
+rules key on, and which of them threw false positives before they were tuned.

@@ -31,11 +31,20 @@ export const metadata: Metadata = {
     title: `${site.name} — Cybersecurity & IT`,
     description,
     url: site.url,
+    images: [
+      {
+        url: '/og.png',
+        width: 1200,
+        height: 630,
+        alt: `${site.name}. Blue team by trade, red team by curiosity.`,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${site.name} — Cybersecurity & IT`,
     description,
+    images: ['/og.png'],
   },
   icons: {
     icon: [

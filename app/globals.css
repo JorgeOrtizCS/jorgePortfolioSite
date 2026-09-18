@@ -802,6 +802,32 @@ a.post-row:hover {
   margin-bottom: 0;
 }
 
+.prose figure {
+  margin: 0 0 28px;
+}
+
+.prose figure a {
+  display: block;
+  text-decoration: none;
+}
+
+.prose img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #060a08;
+}
+
+.prose figcaption {
+  margin-top: 10px;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
 .post-foot {
   padding-top: 28px;
   border-top: 1px solid var(--line);
