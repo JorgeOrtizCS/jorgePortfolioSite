@@ -7,7 +7,7 @@ import { site } from '@/lib/content'
 import './globals.css'
 
 const description =
-  'Jorge Ortiz is a computer science student and IT professional in South Florida working toward a SOC analyst role, with four years across enterprise IT, EDR tooling, and SIEM platforms.'
+  'Jorge Ortiz is a computer science student and IT professional in South Florida working toward a SOC analyst role, with hands-on enterprise IT, EDR tooling, and SIEM experience.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -45,6 +45,11 @@ export const metadata: Metadata = {
     title: `${site.name} — Cybersecurity & IT`,
     description,
     images: ['/og.png'],
+  },
+  alternates: {
+    types: {
+      'application/rss+xml': [{ url: '/feed.xml', title: `${site.name} — Blog` }],
+    },
   },
   icons: {
     icon: [

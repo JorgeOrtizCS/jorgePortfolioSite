@@ -15,7 +15,7 @@ export const hero = {
   label: 'Defensive Security \u00b7 Detection & Response',
   name: 'Jorge Ortiz',
   tagline: 'Blue team by trade, red team by curiosity.',
-  lede: 'CS student at FAU, four years across enterprise IT, from Tier 1 tickets to threat hunting in SentinelOne and alert triage in a SOC. Currently building SentinelZero, a lateral movement detection platform.',
+  lede: 'CS student at FAU with enterprise IT experience, from Tier 1 tickets to threat hunting in SentinelOne and alert triage in a SOC. Currently building SentinelZero, a lateral movement detection platform.',
   ask: 'Looking for defensive security work: SOC, detection engineering, or incident response.',
   feature: {
     src: '/images/sentinelzero-cover.jpg',
@@ -30,7 +30,7 @@ export const current =
   'Studying for CompTIA Network+, building out SentinelZero\u2019s alert pipeline, and working through offensive labs on BreachLab to sharpen my detections.'
 
 export const numbers: { value: string; label: string }[] = [
-  { value: '4 yrs', label: 'in enterprise IT' },
+  { value: '3+ yrs', label: 'in enterprise IT' },
   { value: '2,000+', label: 'employees supported' },
   { value: '75-80%', label: 'phishing pass rate, up from 40%' },
   { value: '15-20', label: 'tickets a day, under 20 min each' },
@@ -45,7 +45,7 @@ export const story = {
 }
 
 export const about = [
-  'I support enterprise IT environments and study computer science at Florida Atlantic University. Over the last four years I have gone from Tier 1 tickets to supervising technicians, running hybrid Active Directory and Azure AD implementations, and threat hunting in SentinelOne.',
+  'I support enterprise IT environments and study computer science at Florida Atlantic University. I have gone from Tier 1 tickets to supervising technicians, running hybrid Active Directory and Azure AD implementations, and threat hunting in SentinelOne.',
   'The part I keep coming back to is detection work: figuring out what normal looks like on a network so you can tell when it stops being normal. I am building toward defensive security roles focused on detection, incident response, and EDR operations.',
   'I also practice on the offensive side. Understanding how an attacker actually moves is what makes a detection rule worth writing, so I work through labs on my own time and feed what I learn back into SentinelZero.',
 ]
