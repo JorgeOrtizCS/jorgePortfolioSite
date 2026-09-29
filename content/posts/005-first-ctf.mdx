@@ -1,0 +1,69 @@
+---
+entry: '005'
+title: First CTF, First Place, And A Reality Check
+date: '2026-09-29'
+summary: 'My team won SFISSA Hack the Flag, my first CTF ever. The scoreboard and what I actually contributed are two different stories, and the second one is the useful one.'
+tags: ['CTF', 'OSINT', 'SFISSA']
+status: published
+---
+
+A couple weekends ago I went to SFISSA's Hack the Flag and Chili Cookoff. It was my first CTF
+ever. My team took first place. It should feel like an unqualified win, and in a lot of ways it
+was, but the honest version of the story is messier than "we won," and I think the messy version
+is more useful to write down.
+
+## The win
+
+Our team cleared the board and finished in first. Great day, great people, and it was genuinely
+cool to compete alongside people who have been doing this a lot longer than I have. If you just
+look at the scoreboard, it looks like I belonged there.
+
+## The part that is not on the scoreboard
+
+Here is what actually happened on most of those challenges: I watched. We had an AI assistant
+helping the team, and across most of the board it was doing the technical work while I followed
+along instead of driving. The categories that gave us trouble were not things I could reason
+through on my own yet, so I leaned on the tool instead of the skill.
+
+OSINT was the place I felt most useful. Tracking a subject across social media profiles, pulling
+metadata out of photos, piecing together where someone had been. That is patience and attention
+to detail more than deep technical knowledge, and it is the one part of the weekend where I felt
+like a contributor rather than a spectator.
+
+I could leave that paragraph out. Nobody at the event is going to publish a breakdown of who
+solved what, and the scoreboard says first place either way. I am putting it in because a result
+I cannot reproduce is not worth much to me, and pretending otherwise mostly just delays finding
+that out.
+
+## What I actually got out of it
+
+The challenge I actually drove myself was a crypto one called procrastinator. A Flask app with a
+`.git` directory left in the shipped source, a secret key hardcoded in the first commit and
+"removed" in the second, and a session cookie I could forge once I had that key. I typed every
+command in that one, including all the wrong ones, and I wrote it up properly
+[here](/blog/006-procrastinator-git-history).
+
+The other one I spent real time on was an OSINT scenario, working through a case file to decide
+whether a student was actually a threat. The answer turned out to be that the evidence had been
+cooked, and catching that was reading comprehension more than tooling. That is the kind of work I
+am good at right now.
+
+That is not the same as being able to do it cold, and I want to be clear that I have not done
+that yet. Working through something with guidance and then doing it unassisted are different
+skills, and only the second one is the one employers are actually buying. Knowing precisely where
+that line sits for me right now is the most useful thing I took home from the weekend.
+
+## What I am doing about it
+
+The plan is not complicated. Redo that forensics case start to finish with no assistance and no
+walkthrough, and write up whatever breaks. Keep grinding the offensive labs I have been working
+through, where I am forced to drive because there is nobody else on the keyboard. Build the
+fundamentals in the categories I had to sit out, so that next year the scoreboard and my actual
+contribution are the same number.
+
+A win does not automatically mean competence, and the gap between the two is exactly where the
+next few months of work need to go. I am not treating "I do not know enough" as a source of
+anxiety anymore, I am using it as a checklist. OSINT is a lane I can build on. Everything else
+just tells me where to look next.
+
+On to the next one.

